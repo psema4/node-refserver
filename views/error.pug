@@ -1,0 +1,24 @@
+//-
+  error.pug
+
+doctype html
+html(lang="en")
+  include head
+
+  body
+    div(class="container" style="width: 100vw; height: 100vh;")
+      h1(class="logo")= siteName
+      div(class="menu d-flex flex-wrap")
+        a(class="menu-item" href="/") Home
+        //- button(class="menu-item") Articles
+        //- button(class="menu-item") Gallery
+        //- button(class="menu-item") Projects
+        //- button(class="menu-item") API
+      div(class="content")
+        p= message
+      div(class="footer")
+        span &copy; 2017 Scott Elcomb
+
+    //- <script src="/socket.io/socket.io.js"></script>
+    //- <script src="/vendor/bootstrap-4.0.0-beta.2.min.js"></script>
+    //- <script src="/js/app.js"></script>
