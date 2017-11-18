@@ -1,10 +1,11 @@
 module.exports = {
-  , siteName: 'node-refserver'
+    siteName: 'node-refserver'
   , siteDomain: 'your-site.com'
+  , siteCopyright: '2017 your-name'
 
-    ports: {
-        http: 8080
-      , https: 8443
+  , ports: {
+        http: 8081
+      , https: 8444
     }
 
 /*

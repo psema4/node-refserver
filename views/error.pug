@@ -17,7 +17,8 @@ html(lang="en")
       div(class="content")
         p= message
       div(class="footer")
-        span &copy; 2017 Scott Elcomb
+        if siteCopyright
+          span &copy; siteCopyright
 
     //- <script src="/socket.io/socket.io.js"></script>
     //- <script src="/vendor/bootstrap-4.0.0-beta.2.min.js"></script>

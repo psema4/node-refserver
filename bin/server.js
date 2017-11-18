@@ -47,7 +47,7 @@ app.use(express.static(__dirname + '/../public'));
 
 // Public Endpoints
 app.get('/', function(req, res, next) {
-    res.render('app', { siteName: config.siteName, title: config.siteName, message: 'Will be back soon.' });
+    res.render('app', { siteName: config.siteName, siteCopyright: config.siteCopyright, title: config.siteName, message: 'Will be back soon.' });
 });
 
 app.get('/throw', function(req, res, next) {
@@ -56,7 +56,7 @@ app.get('/throw', function(req, res, next) {
 });
 
 app.get('/render', function(req, res, next) {
-    res.render('error', { siteName: config.siteName, title: config.siteName, message: 'This is an api rendered endpoint.' });
+    res.render('error', { siteName: config.siteName, siteCopyright: config.siteCopyright, title: config.siteName, message: 'This is an api rendered endpoint.' });
 });
 
 
@@ -131,7 +131,7 @@ function authCheck(req, res, next) {
 
     if (!reqAuth || reqAuth !== config.accessToken) {
         res.statusCode = 401;
-        next(new Error('Not Authorized'));
+        next(new Error('Not Copyrightized'));
 
     } else {
         next();
@@ -140,7 +140,7 @@ function authCheck(req, res, next) {
 
 function notFound(req, res, next) {
     res.statusCode = 404;
-    res.render('error', { siteName: config.siteName, title: statusCodes[res.statusCode], message: statusCodes[res.statusCode] });
+    res.render('error', { siteName: config.siteName, siteCopyright: config.siteCopyright, title: statusCodes[res.statusCode], message: statusCodes[res.statusCode] });
 }
 
 function logErrors(err, req, res, next) {
@@ -170,5 +170,5 @@ function errorHandler (err, req, res, next) {
     if (! res.headersSent)
         res.status(res.statusCode);
    
-    res.render('error', { siteName: config.siteName, title: statusCodes[res.statusCode], message: statusCodes[res.statusCode] });
+    res.render('error', { siteName: config.siteName, siteCopyright: config.siteCopyright, title: statusCodes[res.statusCode], message: statusCodes[res.statusCode] });
 }
