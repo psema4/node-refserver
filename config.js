@@ -1,6 +1,11 @@
 module.exports = {
-    port: 8080
   , siteName: 'node-refserver'
+  , siteDomain: 'your-site.com'
+
+    ports: {
+        http: 8080
+      , https: 8443
+    }
 
 /*
   , ssl: {

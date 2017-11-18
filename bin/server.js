@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-var https = require('https')
+var http = require('http')
+  , https = require('https')
   , fs = require('fs')
   , express = require('express')
   , app = express()
   , util = require('util')
   , config = require('../config')
-  , port = config.port || 8080
+  , httpPort = config.ports && config.ports.http || 8080
+  , httpsPort = config.ports && config.ports.https || 8443
   , api = require('../lib/api')
   , statusCodes = require('../lib/statusCodes')
   , sslOptions = (!config.ssl) ? {} : {
@@ -71,8 +73,8 @@ app.use(errorHandler)
 
 // Launch Server
 if (config.ssl) {
-    var server = https.createServer(sslOptions, app).listen(port);
-    console.log('Listening on port %s with SSL and Web Socket support.', port);
+    var server = https.createServer(sslOptions, app).listen(httpsPort);
+    console.log('Listening on port %s with SSL and Web Socket support.', httpsPort);
     io = require('socket.io').listen(server);
 
     io.on('connection', function(socket) {
@@ -106,9 +108,15 @@ if (config.ssl) {
         });
     });
 
+    // Start an http server, redirect all traffic to the secure server
+    http.createServer(function(req, res) {
+        res.writeHead(302, {'Location': 'https://' + config.siteDomain + req.url});
+        res.end();
+    }).listen(httpPort);
+
 } else {
-    app.listen(port, function() {
-        console.log('Listening on port %s without SSL or Web Socket support.', port);
+    app.listen(httpPort, function() {
+        console.log('Listening on port %s without SSL or Web Socket support.', httpPort);
     });
 }
 
